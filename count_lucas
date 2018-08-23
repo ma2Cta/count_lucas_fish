@@ -2,7 +2,7 @@
 
 function lucas 
   set -g prev $argv[2]
-  set -g next (expr $argv[1] + $argv[2]) 
+  set -g next (math $argv[1] + $argv[2]) 
 end
 
 set input $argv[1]
@@ -20,6 +20,6 @@ else
       printf $count
       exit
     end
-    set count (expr $count + 1 )
+    set count (math $count + 1 )
   end
 end
