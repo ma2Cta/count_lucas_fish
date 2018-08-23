@@ -6,6 +6,12 @@ function lucas
 end
 
 set input $argv[1]
+set threshold 6440026026380244498
+
+if test $input -ge $threshold
+  printf 91
+  exit
+end
 
 if test $input -le 2
   echo $input
