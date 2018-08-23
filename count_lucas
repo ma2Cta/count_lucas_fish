@@ -9,7 +9,7 @@ set input $argv[1]
 set threshold 6440026026380244498
 
 if test $input -ge $threshold
-  printf 91
+  echo 91
   exit
 end
 
@@ -23,7 +23,7 @@ else
   while true 
     lucas $prev $next
     if test $next -gt $input
-      printf $count
+      echo $count
       exit
     end
     set count (math $count + 1 )
