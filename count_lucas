@@ -3,6 +3,7 @@
 function lucas 
   set -g prev $argv[2]
   set -g next (math $argv[1] + $argv[2]) 
+  set -g count (math $count + 1)
 end
 
 set input $argv[1]
@@ -18,7 +19,7 @@ if test $input -le 2
 else
   set -g prev 2
   set -g next 1
-  set count 2
+  set -g count 1 
 
   while true 
     lucas $prev $next
@@ -26,6 +27,5 @@ else
       echo $count
       exit
     end
-    set count (math $count + 1 )
   end
 end
