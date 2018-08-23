@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+
+set input $argv[1]
+
+if test $input -le 2
+  echo $input
+else
+  set -g prev 2
+  set -g next 1
+  set count 2
+
+  while true 
+    lucas $prev $next
+    if test $next -gt $input
+      printf $count
+      exit
+    end
+    set count (expr $count + 1 )
+  end
+end
+
+function lucas 
+  set -g prev $argv[2]
+  set -g next (expr $argv[1] + $argv[2]) 
+end
