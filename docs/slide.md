@@ -7,14 +7,39 @@
 ---
 
 ### goで書いてみた
-- 一部抜粋
-  - クロージャが使えるらしい
+- クロージャが使えるらしい
 ```go
+package main
+
+import (
+	"os"
+	"strconv"
+	"fmt"
+)
+
 func lucas() func() (int, int) {
-  prev, next, count := 2, 1, 1
+	prev, next, count := 2, 1, 1
 	return func() (int, int) {
 		prev, next, count = next, prev+next, count+1
 		return next, count
+	}
+}
+
+func main() {
+	args := os.Args
+	num, _ := strconv.Atoi(args[1])
+
+	if num <= 2 {
+		fmt.Println(num)
+	} else {
+		f := lucas()
+		for {
+			n, c := f()
+			if n > num || n < 0 {
+				fmt.Println(c)
+				break
+			}
+		}
 	}
 }
 ```
@@ -27,25 +52,25 @@ $ time ./count_lucas $(( 2 ** 63 - 1 ))
 ./count_lucas $(( 2 ** 63 - 1 ))  0.00s user 0.00s system 34% cpu 0.011 total
 ```
 - 速いけど普通
-  - ネタ要素が少ない
+- ネタ要素が少ない
 
 ---
 
 ### シェルで書こう
 - シェルでの 2^63 - 1 の計算方法を調べていた
-- count_lucas自体もシェルで書けばいいのでは？？？
-- でも普通のシェルで書いても面白くないのでは？？？
+- count_lucas自体もシェルで書けばいいのでは？
+- でも普通のシェルで書いても面白くないのでは？
 
 ---
 
-- fishで書こう
-  - friendly interactive shellの略らしい
-  - '''これならネタ被りしなさそう'''
+### fishで書こう
+- friendly interactive shellの略らしい
+- ネタ被りしなさそう
 <img src="image/fish_sakana_sake.png" width=50%>
 
 ---
 
-### fishのいいところ
+### fishの特徴
 - デフォルトで色々と補完が効く
   - 薄字で補完
   - 不正なコマンドのときは赤色など
@@ -60,7 +85,6 @@ $ time ./count_lucas $(( 2 ** 63 - 1 ))
 
 ---
 
-### fishの悪いところ
 - POSIX非互換
   - `HOGE="hoge"`みたいなことが出来ない
     - `set HOGE "hoge"`とやらなきゃいけないらしい
@@ -107,12 +131,14 @@ end
 
 ---
 
-- 感想
-  - fishで書いてもあまり面白くはならなかった
-  - overflowしたときがつらかった
-<img src="image/fish_sakana_iwashi.png" width=100%>
+### 感想
+- fishで書いてもあまり面白くはならなかった
+<img src="image/fish_sakana_iwashi.png" width=50%>
 
 ---
 
 ### おわり
-<img src="image/job_ryoushi.png" width=100%>
+- 参考
+  - 全訳！fishシェル普及計画 http://fish.rubikitch.com/
+  - reveal.js https://github.com/hakimel/reveal.js
+<img src="image/job_ryoushi.png" width=50%>
